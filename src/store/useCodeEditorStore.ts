@@ -4,7 +4,7 @@ import { create } from "zustand";
 import { Monaco } from "@monaco-editor/react";
 
 const getInitialState = () => {
-  // if we're on the server, return default values
+  // if we're on the server, return default values of the editor settings
   if (typeof window === "undefined") {
     return {
       language: "javascript",
@@ -13,7 +13,7 @@ const getInitialState = () => {
     };
   }
 
-  // if we're on the client, return values from local storage because localStorage is a browser API.
+  // if we're on the client, return values from local storage because localStorage is a browser API
   const savedLanguage = localStorage.getItem("editor-language") || "javascript";
   const savedTheme = localStorage.getItem("editor-theme") || "vs-dark";
   const savedFontSize = localStorage.getItem("editor-font-size") || 16;
