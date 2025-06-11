@@ -30,7 +30,7 @@ function ProPlanView() {
                 className="inline-flex items-center justify-center gap-2 w-full px-8 py-4 bg-gradient-to-r from-blue-500/10 to-purple-500/10 hover:from-blue-500/20 hover:to-purple-500/20 text-white rounded-xl transition-all duration-200 border border-gray-800 hover:border-blue-500/50 group"
               >
                 <Command className="w-5 h-5 text-blue-400" />
-                <span>Open Editor</span>
+                <span>Open Pro Editor</span>
                 <ArrowRight className="w-5 h-5 text-purple-400 group-hover:translate-x-0.5 transition-transform" />
               </Link>
             </div>

@@ -3,43 +3,44 @@ import { Boxes, Globe, RefreshCcw, Shield } from "lucide-react";
 export const ENTERPRISE_FEATURES = [
   {
     icon: Globe,
-    label: "Global Infrastructure",
-    desc: "Lightning-fast execution across worldwide edge nodes",
+    label: "All Languages Unlocked",
+    desc: "Write and run code in 10+ programming languages instantly",
   },
   {
     icon: Shield,
-    label: "Enterprise Security",
-    desc: "Bank-grade encryption and security protocols",
+    label: "24/7 Editor Uptime",
+    desc: "Reliable access to the editor anytime you need it",
   },
   {
     icon: RefreshCcw,
-    label: "Real-time Sync",
-    desc: "Instant synchronization across all devices",
+    label: "Unlimited Snippet Sharing",
+    desc: "Share as many code snippets as you want without limits",
   },
   {
     icon: Boxes,
-    label: "Unlimited Storage",
-    desc: "Store unlimited snippets and projects",
+    label: "Full Code Storage",
+    desc: "Save and organize all your code without storage limits",
   },
 ];
 
+
 export const FEATURES = {
   development: [
-    "Advanced AI",
-    "Custom theme builder",
-    "Integrated debugging tools",
-    "Multi-language support",
+    "All-language support",
+    "Full code storage",
+    "Unlimited snippet sharing",
+    "Unlimited starred snippets",
   ],
   collaboration: [
-    "Real-time pair programming",
-    "Team workspaces",
-    "Version control integration",
-    "Code review tools",
+    "Snippet sharing links",
+    "Personal snippet history",
+    "Snippet starring feature",
+    "Simple user-friendly UI",
   ],
   deployment: [
-    "One-click deployment",
-    "CI/CD integration",
-    "Container support",
-    "Custom domain mapping",
+    "Always-on editor access",
+    "Clean deployment via Vercel",
+    "Pro-only badge display",
+    "Webhook-ready setup",
   ],
 };
