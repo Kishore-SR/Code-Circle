@@ -34,13 +34,13 @@ export const FEATURES = {
   collaboration: [
     "Snippet sharing links",
     "Personal snippet history",
-    "Snippet starring feature",
+    "Pro badge display",
     "Simple user-friendly UI",
   ],
-  deployment: [
+  experience: [
     "Always-on editor access",
-    "Clean deployment via Vercel",
-    "Pro-only badge display",
-    "Webhook-ready setup",
+    "Lightning-fast execution",
+    "24/7 uptime support",
+    "Mobile-friendly interface",
   ],
 };
