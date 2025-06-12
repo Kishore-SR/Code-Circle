@@ -49,9 +49,9 @@ function SnippetCard({ snippet, view = "grid" }: { snippet: Snippet; view?: "gri
           transition-all duration-300 overflow-hidden
           hover:shadow-md hover:shadow-blue-500/5`}
         >
-          <div className={`p-2.5 xs:p-3 sm:p-3 ${view === "list" ? "flex flex-col sm:flex-row sm:items-start sm:gap-3" : ""}`}>
+          <div className={`p-3 sm:p-4 ${view === "list" ? "flex flex-col sm:flex-row sm:items-start sm:gap-4" : ""}`}>
             {/* Header */}
-            <div className={`flex items-start justify-between mb-2 sm:mb-3 ${view === "list" ? "sm:mb-0 sm:w-40 sm:flex-shrink-0" : ""}`}>
+            <div className={`flex items-start justify-between mb-2 sm:mb-3 ${view === "list" ? "sm:mb-0 sm:w-44 sm:flex-shrink-0" : ""}`}>
               <div className="flex items-center gap-1.5 sm:gap-2">
                 <div className="relative">
                   <div
@@ -126,13 +126,11 @@ function SnippetCard({ snippet, view = "grid" }: { snippet: Snippet; view?: "gri
                     <span className="truncate max-w-[70px] xs:max-w-[90px] sm:max-w-[100px]">{snippet.userName}</span>
                   </div>
                 </div>
-              </div>
-
-              <div className="relative group/code">
+              </div>              <div className="relative group/code">
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500/15 to-purple-500/5 rounded-lg opacity-0 group-hover/code:opacity-100 transition-all" />
-                <pre className={`relative bg-black/30 rounded-lg p-1.5 sm:p-2 overflow-hidden text-[10px] xs:text-xs text-gray-300 font-mono ${view === "list"
-                  ? "max-h-[70px] line-clamp-2 sm:max-h-[80px] sm:line-clamp-3"
-                  : "max-h-[90px] line-clamp-3 sm:max-h-[100px] sm:line-clamp-4"
+                <pre className={`relative bg-black/30 rounded-lg p-2 sm:p-3 overflow-hidden text-[10px] xs:text-xs text-gray-300 font-mono ${view === "list"
+                  ? "max-h-[70px] line-clamp-2 sm:max-h-[90px] sm:line-clamp-3"
+                  : "max-h-[90px] line-clamp-3 sm:max-h-[110px] sm:line-clamp-4"
                   }`}>
                   {snippet.code}
                 </pre>

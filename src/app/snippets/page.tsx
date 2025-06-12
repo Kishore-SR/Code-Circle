@@ -44,7 +44,7 @@ function SnippetsPage() {
     <div className="min-h-screen bg-[#0a0a0f]">
       <NavigationHeader />
 
-      <div className="relative max-w-7xl mx-auto px-3 sm:px-4 py-6 sm:py-12">
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-5 py-6 sm:py-10">
         {/* Hero section */}
         <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-16">
           <motion.div
@@ -75,7 +75,7 @@ function SnippetsPage() {
         </div>
 
         {/* Filters Section */}
-        <div className="relative max-w-5xl mx-auto mb-8 sm:mb-12 space-y-4 sm:space-y-6">
+        <div className="relative max-w-4xl mx-auto mb-8 sm:mb-10 space-y-4 sm:space-y-5">
           {/* Search by author name, snippet title or coding language */}
           <div className="relative group">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500" />
@@ -165,8 +165,8 @@ function SnippetsPage() {
 
         {/* Snippets Grid */}
         <motion.div
-          className={`grid gap-2 xs:gap-2.5 sm:gap-3 ${view === "grid"
-            ? "grid-cols-1 xs:grid-cols-2 md:grid-cols-3 xl:grid-cols-4"
+          className={`grid gap-4 sm:gap-5 ${view === "grid"
+            ? "grid-cols-1 xs:grid-cols-2 md:grid-cols-3"
             : "grid-cols-1 max-w-2xl mx-auto"
             }`}
           layout
