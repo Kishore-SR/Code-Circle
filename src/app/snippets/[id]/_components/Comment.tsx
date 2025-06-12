@@ -18,15 +18,15 @@ interface CommentProps {
 function Comment({ comment, currentUserId, isDeleting, onDelete }: CommentProps) {
   return (
     <div className="group">
-      <div className="bg-[#0a0a0f] rounded-xl p-6 border border-[#ffffff0a] hover:border-[#ffffff14] transition-all">
-        <div className="flex items-start sm:items-center justify-between gap-4 mb-4">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-[#ffffff08] flex items-center justify-center flex-shrink-0">
-              <UserIcon className="w-4 h-4 text-[#808086]" />
+      <div className="bg-[#0a0a0f] rounded-lg sm:rounded-xl p-3 sm:p-6 border border-[#ffffff0a] hover:border-[#ffffff14] transition-all">
+        <div className="flex items-start justify-between gap-3 sm:gap-4 mb-3 sm:mb-4">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#ffffff08] flex items-center justify-center flex-shrink-0">
+              <UserIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#808086]" />
             </div>
             <div className="min-w-0">
-              <span className="block text-[#e1e1e3] font-medium truncate">{comment.userName}</span>
-              <span className="block text-sm text-[#808086]">
+              <span className="block text-sm sm:text-base text-[#e1e1e3] font-medium truncate">{comment.userName}</span>
+              <span className="block text-xs sm:text-sm text-[#808086]">
                 {new Date(comment._creationTime).toLocaleDateString()}
               </span>
             </div>
@@ -36,10 +36,10 @@ function Comment({ comment, currentUserId, isDeleting, onDelete }: CommentProps)
             <button
               onClick={() => onDelete(comment._id)}
               disabled={isDeleting}
-              className="opacity-0 group-hover:opacity-100 p-2 hover:bg-red-500/10 rounded-lg transition-all"
+              className="p-1.5 sm:p-2 hover:bg-red-500/10 rounded-lg transition-all opacity-70 sm:opacity-0 sm:group-hover:opacity-100"
               title="Delete comment"
             >
-              <Trash2Icon className="w-4 h-4 text-red-400" />
+              <Trash2Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-red-400" />
             </button>
           )}
         </div>

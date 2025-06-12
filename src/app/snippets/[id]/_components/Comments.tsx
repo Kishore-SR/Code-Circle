@@ -44,38 +44,44 @@ function Comments({ snippetId }: { snippetId: Id<"snippets"> }) {
   };
 
   return (
-    <div className="bg-[#121218] border border-[#ffffff0a] rounded-2xl overflow-hidden">
-      <div className="px-6 sm:px-8 py-6 border-b border-[#ffffff0a]">
-        <h2 className="text-lg font-semibold text-white flex items-center gap-2">
-          <MessageSquare className="w-5 h-5" />
+    <div className="bg-[#121218] border border-[#ffffff0a] rounded-xl sm:rounded-2xl overflow-hidden">
+      <div className="px-4 sm:px-8 py-3 sm:py-6 border-b border-[#ffffff0a]">
+        <h2 className="text-base sm:text-lg font-semibold text-white flex items-center gap-1.5 sm:gap-2">
+          <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5" />
           Discussion ({comments.length})
         </h2>
       </div>
 
-      <div className="p-6 sm:p-8">
+      <div className="p-3 sm:p-8">
         {user ? (
           <CommentForm onSubmit={handleSubmitComment} isSubmitting={isSubmitting} />
         ) : (
-          <div className="bg-[#0a0a0f] rounded-xl p-6 text-center mb-8 border border-[#ffffff0a]">
-            <p className="text-[#808086] mb-4">Sign in to join the discussion</p>
+          <div className="bg-[#0a0a0f] rounded-lg sm:rounded-xl p-4 sm:p-6 text-center mb-6 sm:mb-8 border border-[#ffffff0a]">
+            <p className="text-sm sm:text-base text-[#808086] mb-3 sm:mb-4">Sign in to join the discussion</p>
             <SignInButton mode="modal">
-              <button className="px-6 py-2 bg-[#3b82f6] text-white rounded-lg hover:bg-[#2563eb] transition-colors">
+              <button className="px-4 sm:px-6 py-1.5 sm:py-2 bg-[#3b82f6] text-white text-sm rounded-lg hover:bg-[#2563eb] transition-colors">
                 Sign In
               </button>
             </SignInButton>
           </div>
         )}
 
-        <div className="space-y-6">
-          {comments.map((comment) => (
-            <Comment
-              key={comment._id}
-              comment={comment}
-              onDelete={handleDeleteComment}
-              isDeleting={deletinCommentId === comment._id}
-              currentUserId={user?.id}
-            />
-          ))}
+        <div className="space-y-4 sm:space-y-6">
+          {comments.length > 0 ? (
+            comments.map((comment) => (
+              <Comment
+                key={comment._id}
+                comment={comment}
+                onDelete={handleDeleteComment}
+                isDeleting={deletinCommentId === comment._id}
+                currentUserId={user?.id}
+              />
+            ))
+          ) : (
+            <div className="text-center py-6 text-[#808086] text-sm sm:text-base">
+              No comments yet. Be the first to comment!
+            </div>
+          )}
         </div>
       </div>
     </div>

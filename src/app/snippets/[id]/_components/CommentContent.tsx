@@ -1,11 +1,11 @@
 import CodeBlock from "./CodeBlock";
 
 function CommentContent({ content }: { content: string }) {
-  // regex
+  // regex to split content into regular text and code blocks
   const parts = content.split(/(```[\w-]*\n[\s\S]*?\n```)/g);
 
   return (
-    <div className="max-w-none text-white">
+    <div className="max-w-none text-white text-sm sm:text-base">
       {parts.map((part, index) => {
         if (part.startsWith("```")) {
           //           ```javascript
@@ -20,7 +20,7 @@ function CommentContent({ content }: { content: string }) {
         }
 
         return part.split("\n").map((line, lineIdx) => (
-          <p key={lineIdx} className="mb-4 text-gray-300 last:mb-0">
+          <p key={lineIdx} className="mb-3 sm:mb-4 text-gray-300 last:mb-0">
             {line}
           </p>
         ));

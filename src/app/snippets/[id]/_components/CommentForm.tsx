@@ -34,16 +34,15 @@ function CommentForm({ isSubmitting, onSubmit }: CommentFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-8">
+    <form onSubmit={handleSubmit} className="mb-6 sm:mb-8">
       <div className="bg-[#0a0a0f] rounded-xl border border-[#ffffff0a] overflow-hidden">
         {/* Comment form header */}
-        <div className="flex justify-end gap-2 px-4 pt-2">
+        <div className="flex justify-end gap-2 px-3 sm:px-4 pt-2">
           <button
             type="button"
             onClick={() => setIsPreview(!isPreview)}
-            className={`text-sm px-3 py-1 rounded-md transition-colors ${
-              isPreview ? "bg-blue-500/10 text-blue-400" : "hover:bg-[#ffffff08] text-gray-400"
-            }`}
+            className={`text-sm px-2.5 sm:px-3 py-1 rounded-md transition-colors ${isPreview ? "bg-blue-500/10 text-blue-400" : "hover:bg-[#ffffff08] text-gray-400"
+              }`}
           >
             {isPreview ? "Edit" : "Preview"}
           </button>
@@ -51,7 +50,7 @@ function CommentForm({ isSubmitting, onSubmit }: CommentFormProps) {
 
         {/* Comment form body */}
         {isPreview ? (
-          <div className="min-h-[120px] p-4 text-[#e1e1e3">
+          <div className="min-h-[100px] sm:min-h-[120px] p-3 sm:p-4 text-[#e1e1e3]">
             <CommentContent content={comment} />
           </div>
         ) : (
@@ -61,12 +60,12 @@ function CommentForm({ isSubmitting, onSubmit }: CommentFormProps) {
             onKeyDown={handleKeyDown}
             placeholder="Add to the discussion..."
             className="w-full bg-transparent border-0 text-[#e1e1e3] placeholder:text-[#808086] outline-none 
-            resize-none min-h-[120px] p-4 font-mono text-sm"
+            resize-none min-h-[100px] sm:min-h-[120px] p-3 sm:p-4 font-mono text-sm"
           />
         )}
 
         {/* Comment Form Footer */}
-        <div className="flex items-center justify-between gap-4 px-4 py-3 bg-[#080809] border-t border-[#ffffff0a]">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-4 px-3 sm:px-4 py-3 bg-[#080809] border-t border-[#ffffff0a]">
           <div className="hidden sm:block text-xs text-[#808086] space-y-1">
             <div className="flex items-center gap-2">
               <CodeIcon className="w-3.5 h-3.5" />
@@ -76,22 +75,29 @@ function CommentForm({ isSubmitting, onSubmit }: CommentFormProps) {
               Tab key inserts spaces • Preview your comment before posting
             </div>
           </div>
+
+          {/* Mobile formatting hint */}
+          <div className="sm:hidden text-xs text-[#808086] mb-2 flex items-center gap-1.5">
+            <CodeIcon className="w-3 h-3" />
+            <span>Use ```language for code blocks</span>
+          </div>
+
           <button
             type="submit"
             disabled={isSubmitting || !comment.trim()}
-            className="flex items-center gap-2 px-4 py-2 bg-[#3b82f6] text-white rounded-lg hover:bg-[#2563eb] disabled:opacity-50 disabled:cursor-not-allowed transition-all ml-auto"
+            className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-[#3b82f6] text-white text-sm rounded-lg hover:bg-[#2563eb] disabled:opacity-50 disabled:cursor-not-allowed transition-all sm:ml-auto w-full sm:w-auto justify-center"
           >
             {isSubmitting ? (
               <>
                 <div
-                  className="w-4 h-4 border-2 border-white/30 
+                  className="w-3.5 h-3.5 border-2 border-white/30 
                 border-t-white rounded-full animate-spin"
                 />
                 <span>Posting...</span>
               </>
             ) : (
               <>
-                <SendIcon className="w-4 h-4" />
+                <SendIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 <span>Comment</span>
               </>
             )}
@@ -101,4 +107,5 @@ function CommentForm({ isSubmitting, onSubmit }: CommentFormProps) {
     </form>
   );
 }
+
 export default CommentForm;
