@@ -43,10 +43,10 @@ function SnippetCard({ snippet }: { snippet: Snippet }) {
           border border-[#313244]/50 hover:border-[#313244] 
           transition-all duration-300 overflow-hidden"
         >
-          <div className="p-6">
+          <div className="p-4 sm:p-6">
             {/* Header */}
-            <div className="flex items-start justify-between mb-4">
-              <div className="flex items-center gap-3">
+            <div className="flex items-start justify-between mb-3 sm:mb-4">
+              <div className="flex items-center gap-2 sm:gap-3">
                 <div className="relative">
                   <div
                     className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg blur opacity-20 
@@ -54,30 +54,30 @@ function SnippetCard({ snippet }: { snippet: Snippet }) {
                     area-hidden="true"
                   />
                   <div
-                    className="relative p-2 rounded-lg bg-gradient-to-br from-blue-500/10 to-purple-500/10 group-hover:from-blue-500/20
+                    className="relative p-1.5 sm:p-2 rounded-lg bg-gradient-to-br from-blue-500/10 to-purple-500/10 group-hover:from-blue-500/20
                    group-hover:to-purple-500/20 transition-all duration-500"
                   >
                     <Image
                       src={`/${snippet.language}.png`}
                       alt={`${snippet.language} logo`}
-                      className="w-6 h-6 object-contain relative z-10"
+                      className="w-5 h-5 sm:w-6 sm:h-6 object-contain relative z-10"
                       width={24}
                       height={24}
                     />
                   </div>
                 </div>
                 <div className="space-y-1">
-                  <span className="px-3 py-1 bg-blue-500/10 text-blue-400 rounded-lg text-xs font-medium">
+                  <span className="px-2 sm:px-3 py-0.5 sm:py-1 bg-blue-500/10 text-blue-400 rounded-lg text-xs font-medium">
                     {snippet.language}
                   </span>
-                  <div className="flex items-center gap-2 text-xs text-gray-500">
+                  <div className="flex items-center gap-1.5 sm:gap-2 text-xs text-gray-500">
                     <Clock className="size-3" />
                     {new Date(snippet._creationTime).toLocaleDateString()}
                   </div>
                 </div>
               </div>
               <div
-                className="absolute top-5 right-5 z-10 flex gap-4 items-center"
+                className="absolute top-3 sm:top-5 right-3 sm:right-5 z-10 flex gap-2 sm:gap-4 items-center"
                 onClick={(e) => e.preventDefault()}
               >
                 <StarButton snippetId={snippet._id} />
@@ -88,11 +88,10 @@ function SnippetCard({ snippet }: { snippet: Snippet }) {
                       onClick={handleDelete}
                       disabled={isDeleting}
                       className={`group flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all duration-200
-                                  ${
-                                    isDeleting
-                                      ? "bg-red-500/20 text-red-400 cursor-not-allowed"
-                                      : "bg-gray-500/10 text-gray-400 hover:bg-red-500/10 hover:text-red-400"
-                                  }
+                                  ${isDeleting
+                          ? "bg-red-500/20 text-red-400 cursor-not-allowed"
+                          : "bg-gray-500/10 text-gray-400 hover:bg-red-500/10 hover:text-red-400"
+                        }
                                 `}
                     >
                       {isDeleting ? (
@@ -107,24 +106,24 @@ function SnippetCard({ snippet }: { snippet: Snippet }) {
             </div>
 
             {/* Content */}
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               <div>
-                <h2 className="text-xl font-semibold text-white mb-2 line-clamp-1 group-hover:text-blue-400 transition-colors">
+                <h2 className="text-base sm:text-xl font-semibold text-white mb-1.5 sm:mb-2 line-clamp-1 group-hover:text-blue-400 transition-colors">
                   {snippet.title}
                 </h2>
-                <div className="flex items-center gap-3 text-sm text-gray-400">
-                  <div className="flex items-center gap-2">
-                    <div className="p-1 rounded-md bg-gray-800/50">
+                <div className="flex items-center gap-3 text-xs sm:text-sm text-gray-400">
+                  <div className="flex items-center gap-1.5 sm:gap-2">
+                    <div className="p-0.5 sm:p-1 rounded-md bg-gray-800/50">
                       <User className="size-3" />
                     </div>
-                    <span className="truncate max-w-[150px]">{snippet.userName}</span>
+                    <span className="truncate max-w-[100px] sm:max-w-[150px]">{snippet.userName}</span>
                   </div>
                 </div>
               </div>
 
               <div className="relative group/code">
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500/15 to-purple-500/5 rounded-lg opacity-0 group-hover/code:opacity-100 transition-all" />
-                <pre className="relative bg-black/30 rounded-lg p-4 overflow-hidden text-sm text-gray-300 font-mono line-clamp-3">
+                <pre className="relative bg-black/30 rounded-lg p-3 sm:p-4 overflow-hidden text-xs sm:text-sm text-gray-300 font-mono line-clamp-3">
                   {snippet.code}
                 </pre>
               </div>

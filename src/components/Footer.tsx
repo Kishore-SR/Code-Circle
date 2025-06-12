@@ -12,13 +12,16 @@ function Footer() {
             <span>Built for developers, by Kishore S R</span>
           </div>
           <div className="flex items-center gap-6">
-            <Link href="/support" className="text-gray-400 hover:text-gray-300 transition-colors">
+            <a
+              href="mailto:kishoresr01@gmail.com"
+              className="text-gray-400 hover:text-gray-300 transition-colors"
+            >
               Support
-            </Link>
-            <Link href="/privacy" className="text-gray-400 hover:text-gray-300 transition-colors">
+            </a>
+            <Link href="/" className="text-gray-400 hover:text-gray-300 transition-colors">
               Privacy
             </Link>
-            <Link href="/terms" className="text-gray-400 hover:text-gray-300 transition-colors">
+            <Link href="/" className="text-gray-400 hover:text-gray-300 transition-colors">
               Terms
             </Link>
           </div>

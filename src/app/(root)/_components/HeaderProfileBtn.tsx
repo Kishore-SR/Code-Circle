@@ -6,7 +6,16 @@ import { User } from "lucide-react";
 function HeaderProfileBtn() {
   return (
     <>
-      <UserButton>
+      <UserButton
+        afterSignOutUrl="/"
+        appearance={{
+          elements: {
+            userButtonAvatarBox: "w-7 h-7 sm:w-8 sm:h-8",
+            userButtonTrigger:
+              "focus:outline-none focus:ring-2 focus:ring-blue-500/50 rounded-full"
+          }
+        }}
+      >
         <UserButton.MenuItems>
           <UserButton.Link
             label="Profile"
@@ -22,4 +31,5 @@ function HeaderProfileBtn() {
     </>
   );
 }
+
 export default HeaderProfileBtn;
