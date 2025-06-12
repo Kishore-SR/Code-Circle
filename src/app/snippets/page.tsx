@@ -129,7 +129,7 @@ function SnippetsPage() {
             )}
 
             <div className="ml-auto flex items-center gap-2 sm:gap-3">
-              <span className="text-xs sm:text-sm text-gray-500">
+              <span className="hidden xs:inline-block text-xs sm:text-sm text-gray-500">
                 {filteredSnippets.length} snippets found
               </span>
 
@@ -138,17 +138,18 @@ function SnippetsPage() {
                 <button
                   onClick={() => setView("grid")}
                   className={`p-1.5 sm:p-2 rounded-md transition-all ${view === "grid"
-                      ? "bg-blue-500/20 text-blue-400"
-                      : "text-gray-400 hover:text-gray-300 hover:bg-[#262637]"
+                    ? "bg-blue-500/20 text-blue-400"
+                    : "text-gray-400 hover:text-gray-300 hover:bg-[#262637]"
                     }`}
+                  aria-label="Grid view"
                 >
                   <Grid className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </button>
                 <button
                   onClick={() => setView("list")}
                   className={`p-1.5 sm:p-2 rounded-md transition-all ${view === "list"
-                      ? "bg-blue-500/20 text-blue-400"
-                      : "text-gray-400 hover:text-gray-300 hover:bg-[#262637]"
+                    ? "bg-blue-500/20 text-blue-400"
+                    : "text-gray-400 hover:text-gray-300 hover:bg-[#262637]"
                     }`}
                 >
                   <Layers className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
@@ -160,9 +161,9 @@ function SnippetsPage() {
 
         {/* Snippets Grid */}
         <motion.div
-          className={`grid gap-6 ${view === "grid"
-              ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-              : "grid-cols-1 max-w-3xl mx-auto"
+          className={`grid gap-4 sm:gap-6 ${view === "grid"
+            ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+            : "grid-cols-1 max-w-3xl mx-auto"
             }`}
           layout
         >
@@ -210,6 +211,32 @@ function SnippetsPage() {
             </div>
           </motion.div>
         )}
+      </div>
+
+      {/* Mobile floating view toggle */}
+      <div className="fixed sm:hidden right-4 bottom-4 z-20">
+        <div className="flex items-center gap-1 p-1 bg-[#1e1e2e] rounded-lg ring-1 ring-gray-800 shadow-lg">
+          <button
+            onClick={() => setView("grid")}
+            className={`p-2 rounded-md transition-all ${view === "grid"
+                ? "bg-blue-500/20 text-blue-400"
+                : "text-gray-400 hover:text-gray-300 hover:bg-[#262637]"
+              }`}
+            aria-label="Grid view"
+          >
+            <Grid className="w-4 h-4" />
+          </button>
+          <button
+            onClick={() => setView("list")}
+            className={`p-2 rounded-md transition-all ${view === "list"
+                ? "bg-blue-500/20 text-blue-400"
+                : "text-gray-400 hover:text-gray-300 hover:bg-[#262637]"
+              }`}
+            aria-label="List view"
+          >
+            <Layers className="w-4 h-4" />
+          </button>
+        </div>
       </div>
     </div>
   );

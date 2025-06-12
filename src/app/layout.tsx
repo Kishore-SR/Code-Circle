@@ -28,7 +28,10 @@ export const metadata: Metadata = {
     shortcut: "/favicon.png?v=2",
     apple: "/favicon.png?v=2",
   },
-  themeColor: "#1c60db",
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#1c60db" },
+    { media: "(prefers-color-scheme: light)", color: "#1c60db" }
+  ],
 };
 
 export default function RootLayout({
