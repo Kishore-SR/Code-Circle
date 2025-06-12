@@ -8,13 +8,12 @@ import { Star } from "lucide-react";
 import { useState } from "react";
 
 function StarButton({ snippetId }: { snippetId: Id<"snippets"> }) {
-  const { isSignedIn, userId } = useAuth();
+  const { isSignedIn } = useAuth();
   const [optimisticIsStarred, setOptimisticIsStarred] = useState<boolean | null>(null);
   const [optimisticCount, setOptimisticCount] = useState<number | null>(null);
 
   const isStarredQuery = useQuery(api.snippets.isSnippetStarred, {
-    snippetId,
-    userId: userId as string
+    snippetId
   });
 
   const starCountQuery = useQuery(api.snippets.getSnippetStarCount, { snippetId });

@@ -179,21 +179,17 @@ export const getComments = query({
 export const isSnippetStarred = query({
   args: {
     snippetId: v.id("snippets"),
-    userId: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
-    // Use provided userId if available, otherwise use the authenticated user's ID
-    const userId = args.userId || (identity?.subject);
-    
-    if (!userId) return false;
+    if (!identity) return false;
 
     const star = await ctx.db
       .query("stars")
       .withIndex("by_user_id_and_snippet_id")
       .filter(
         (q) =>
-          q.eq(q.field("userId"), userId) && q.eq(q.field("snippetId"), args.snippetId)
+          q.eq(q.field("userId"), identity.subject) && q.eq(q.field("snippetId"), args.snippetId)
       )
       .first();
 
