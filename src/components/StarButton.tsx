@@ -46,7 +46,7 @@ function StarButton({ snippetId }: { snippetId: Id<"snippets"> }) {
 
   return (
     <button
-      className={`group flex items-center gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg 
+      className={`group flex items-center gap-1 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-lg 
     transition-all duration-200 ${isStarred
           ? "bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500/20"
           : "bg-gray-500/10 text-gray-400 hover:bg-gray-500/20"
@@ -56,9 +56,9 @@ function StarButton({ snippetId }: { snippetId: Id<"snippets"> }) {
       aria-label={isStarred ? "Unstar snippet" : "Star snippet"}
     >
       <Star
-        className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isStarred ? "fill-yellow-500" : "fill-none group-hover:text-gray-400"}`}
+        className={`w-3 h-3 sm:w-3.5 sm:h-3.5 ${isStarred ? "fill-yellow-500" : "fill-none group-hover:text-gray-400"}`}
       />
-      <span className={`text-xs font-medium ${isStarred ? "text-yellow-500" : "text-gray-400"}`}>
+      <span className={`text-[10px] xs:text-xs font-medium ${isStarred ? "text-yellow-500" : "text-gray-400"}`}>
         {starCount || 0}
       </span>
     </button>

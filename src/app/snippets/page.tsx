@@ -165,12 +165,12 @@ function SnippetsPage() {
 
         {/* Snippets Grid */}
         <motion.div
-          className={`grid gap-4 sm:gap-6 ${view === "grid"
-            ? "grid-cols-1 xs:grid-cols-2 lg:grid-cols-3"
-            : "grid-cols-1 max-w-3xl mx-auto"
+          className={`grid gap-2 xs:gap-2.5 sm:gap-3 ${view === "grid"
+            ? "grid-cols-1 xs:grid-cols-2 md:grid-cols-3 xl:grid-cols-4"
+            : "grid-cols-1 max-w-2xl mx-auto"
             }`}
           layout
-          transition={{ duration: 0.3, ease: "easeInOut" }}
+          transition={{ duration: 0.2, ease: "easeInOut" }}
         >
           <AnimatePresence mode="popLayout">
             {filteredSnippets.map((snippet) => (
