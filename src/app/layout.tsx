@@ -21,7 +21,12 @@ export const metadata: Metadata = {
   title: "Code Circle | KSR",
   description: "Run and share code snippets",
   icons: {
-    icon: "/favicon.png",
+    icon: [
+      { url: "/favicon.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon.png?v=2", sizes: "16x16", type: "image/png" }
+    ],
+    shortcut: "/favicon.png?v=2",
+    apple: "/favicon.png?v=2",
   },
 };
 

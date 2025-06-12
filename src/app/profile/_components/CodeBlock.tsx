@@ -20,10 +20,17 @@ const CodeBlock = ({ code, language }: CodeBlockProps) => {
         language={language.toLowerCase()}
         style={atomOneDark}
         customStyle={{
-          padding: "1rem",
+          padding: "0.75rem",
           borderRadius: "0.5rem",
           background: "rgba(0, 0, 0, 0.4)",
           margin: 0,
+          fontSize: "12px",
+        }}
+        codeTagProps={{
+          style: {
+            fontSize: "12px",
+            fontFamily: "var(--font-geist-mono)",
+          }
         }}
       >
         {displayCode}
@@ -32,16 +39,16 @@ const CodeBlock = ({ code, language }: CodeBlockProps) => {
       {lines.length > 6 && (
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="absolute bottom-2 right-2 px-2 py-1 bg-blue-500/20 text-blue-400 rounded text-xs flex items-center 
-          gap-1 hover:bg-blue-500/30 transition-colors"
+          className="absolute bottom-1.5 right-1.5 px-1.5 sm:px-2 py-0.5 sm:py-1 bg-blue-500/20 text-blue-400 rounded text-[10px] sm:text-xs flex items-center 
+          gap-0.5 sm:gap-1 hover:bg-blue-500/30 transition-colors"
         >
           {isExpanded ? (
             <>
-              Show Less <ChevronUp className="w-3 h-3" />
+              Show Less <ChevronUp className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
             </>
           ) : (
             <>
-              Show More <ChevronDown className="w-3 h-3" />
+              Show More <ChevronDown className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
             </>
           )}
         </button>
