@@ -25,9 +25,10 @@ function LanguageSelector({ hasAccess }: { hasAccess: boolean }) {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
   const handleLanguageSelect = (langId: string) => {
-    if (!hasAccess && langId !== "javascript") return;
+    // Allow JavaScript, Java, Python, and C++ for free users
+    const freeLanguages = ["javascript", "python", "java", "cpp"];
+    if (!hasAccess && !freeLanguages.includes(langId)) return;
 
     setLanguage(langId);
     setIsOpen(false);
@@ -37,12 +38,11 @@ function LanguageSelector({ hasAccess }: { hasAccess: boolean }) {
 
   return (<div className="relative" ref={dropdownRef}>      <motion.button
     whileHover={{ scale: 1.02 }}
-    whileTap={{ scale: 0.98 }}
-    onClick={() => setIsOpen(!isOpen)}
+    whileTap={{ scale: 0.98 }} onClick={() => setIsOpen(!isOpen)}
     className={`group relative flex items-center gap-1 sm:gap-1.5 px-1.5 sm:px-2.5 py-1 sm:py-1.5 bg-[#1e1e2e]/80 
       rounded-lg transition-all 
        duration-200 border border-gray-800/50 hover:border-gray-700
-       ${!hasAccess && language !== "javascript" ? "opacity-50 cursor-not-allowed" : ""}`}
+       ${!hasAccess && !["javascript", "python", "java", "cpp"].includes(language) ? "opacity-50 cursor-not-allowed" : ""}`}
   >
     {/* Decoration */}
     <div
@@ -81,78 +81,98 @@ function LanguageSelector({ hasAccess }: { hasAccess: boolean }) {
       >
         <div className="px-2 sm:px-2.5 pb-1 sm:pb-1.5 mb-1 sm:mb-1.5 border-b border-gray-800/50">
           <p className="text-[10px] font-medium text-gray-400">Select Language</p>
-        </div>
+        </div>        <div className="max-h-[240px] sm:max-h-[280px] overflow-y-auto overflow-x-hidden">
+          {/* Free languages shown first */}
+          {Object.values(LANGUAGE_CONFIG)
+            .sort((a, b) => {
+              // Define free languages
+              const freeLanguages = ["javascript", "python", "java", "cpp"];
 
-        <div className="max-h-[240px] sm:max-h-[280px] overflow-y-auto overflow-x-hidden">
-          {Object.values(LANGUAGE_CONFIG).map((lang, index) => {
-            const isLocked = !hasAccess && lang.id !== "javascript";
+              // Order: 1. Free languages (in order defined), 2. Pro languages (alphabetically)
+              const aIsFree = freeLanguages.includes(a.id);
+              const bIsFree = freeLanguages.includes(b.id);
 
-            return (
-              <motion.div
-                key={lang.id}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: index * 0.1 }}
-                className="relative group px-2"
-              >                    <button
-                className={`
+              if (aIsFree && !bIsFree) return -1;
+              if (!aIsFree && bIsFree) return 1;
+
+              if (aIsFree && bIsFree) {
+                // Sort free languages in specified order
+                return freeLanguages.indexOf(a.id) - freeLanguages.indexOf(b.id);
+              }
+
+              // Sort pro languages alphabetically
+              return a.label.localeCompare(b.label);
+            })
+            .map((lang, index) => {
+              const freeLanguages = ["javascript", "python", "java", "cpp"];
+              const isLocked = !hasAccess && !freeLanguages.includes(lang.id);
+
+              return (
+                <motion.div
+                  key={lang.id}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="relative group px-2"
+                >                    <button
+                  className={`
                       relative w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition-all duration-200
                       ${language === lang.id ? "bg-blue-500/10 text-blue-400" : "text-gray-300"}
                       ${isLocked ? "opacity-50" : "hover:bg-[#262637]"}
                     `}
-                onClick={() => handleLanguageSelect(lang.id)}
-                disabled={isLocked}
-              >
-                  {/* decorator */}
-                  <div
-                    className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-lg 
+                  onClick={() => handleLanguageSelect(lang.id)}
+                  disabled={isLocked}
+                >
+                    {/* decorator */}
+                    <div
+                      className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-lg 
                       opacity-0 group-hover:opacity-100 transition-opacity"
-                  />
+                    />
 
-                  <div
-                    className={`
+                    <div
+                      className={`
                          relative size-6 rounded-lg p-1 group-hover:scale-110 transition-transform
                          ${language === lang.id ? "bg-blue-500/10" : "bg-gray-800/50"}
                        `}
-                  >
-                    <div
-                      className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-lg 
+                    >
+                      <div
+                        className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-lg 
                         opacity-0 group-hover:opacity-100 transition-opacity"
-                    />
-                    <Image
-                      width={24}
-                      height={24}
-                      src={lang.logoPath}
-                      alt={`${lang.label} logo`}
-                      className="w-full h-full object-contain relative z-10"
-                    />
-                  </div>
+                      />
+                      <Image
+                        width={24}
+                        height={24}
+                        src={lang.logoPath}
+                        alt={`${lang.label} logo`}
+                        className="w-full h-full object-contain relative z-10"
+                      />
+                    </div>
 
-                  <span className="flex-1 text-left text-xs group-hover:text-white transition-colors">
-                    {lang.label}
-                  </span>
+                    <span className="flex-1 text-left text-xs group-hover:text-white transition-colors">
+                      {lang.label}
+                    </span>
 
-                  {/* selected language border */}
-                  {language === lang.id && (
-                    <motion.div
-                      className="absolute inset-0 border-2 border-blue-500/30 rounded-lg"
-                      transition={{
-                        type: "spring",
-                        bounce: 0.2,
-                        duration: 0.6,
-                      }}
-                    />
-                  )}                      {isLocked ? (
-                    <Lock className="w-3 h-3 text-gray-500" />
-                  ) : (
-                    language === lang.id && (
-                      <Sparkles className="w-3 h-3 text-blue-400 animate-pulse" />
-                    )
-                  )}
-                </button>
-              </motion.div>
-            );
-          })}
+                    {/* selected language border */}
+                    {language === lang.id && (
+                      <motion.div
+                        className="absolute inset-0 border-2 border-blue-500/30 rounded-lg"
+                        transition={{
+                          type: "spring",
+                          bounce: 0.2,
+                          duration: 0.6,
+                        }}
+                      />
+                    )}                      {isLocked ? (
+                      <Lock className="w-3 h-3 text-gray-500" />
+                    ) : (
+                      language === lang.id && (
+                        <Sparkles className="w-3 h-3 text-blue-400 animate-pulse" />
+                      )
+                    )}
+                  </button>
+                </motion.div>
+              );
+            })}
         </div>
       </motion.div>
       )}

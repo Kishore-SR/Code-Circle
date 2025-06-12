@@ -20,6 +20,9 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "Code Circle | KSR",
   description: "Run and share code snippets",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
