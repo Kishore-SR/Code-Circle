@@ -142,6 +142,7 @@ function SnippetsPage() {
                     : "text-gray-400 hover:text-gray-300 hover:bg-[#262637]"
                     }`}
                   aria-label="Grid view"
+                  aria-pressed={view === "grid"}
                 >
                   <Grid className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </button>
@@ -151,6 +152,8 @@ function SnippetsPage() {
                     ? "bg-blue-500/20 text-blue-400"
                     : "text-gray-400 hover:text-gray-300 hover:bg-[#262637]"
                     }`}
+                  aria-label="List view"
+                  aria-pressed={view === "list"}
                 >
                   <Layers className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </button>
@@ -162,14 +165,15 @@ function SnippetsPage() {
         {/* Snippets Grid */}
         <motion.div
           className={`grid gap-4 sm:gap-6 ${view === "grid"
-            ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+            ? "grid-cols-1 xs:grid-cols-2 lg:grid-cols-3"
             : "grid-cols-1 max-w-3xl mx-auto"
             }`}
           layout
+          transition={{ duration: 0.3, ease: "easeInOut" }}
         >
           <AnimatePresence mode="popLayout">
             {filteredSnippets.map((snippet) => (
-              <SnippetCard key={snippet._id} snippet={snippet} />
+              <SnippetCard key={snippet._id} snippet={snippet} view={view} />
             ))}
           </AnimatePresence>
         </motion.div>
@@ -215,26 +219,28 @@ function SnippetsPage() {
 
       {/* Mobile floating view toggle */}
       <div className="fixed sm:hidden right-4 bottom-4 z-20">
-        <div className="flex items-center gap-1 p-1 bg-[#1e1e2e] rounded-lg ring-1 ring-gray-800 shadow-lg">
+        <div className="flex items-center gap-1 p-1 bg-[#1e1e2e] rounded-lg ring-1 ring-gray-800 shadow-lg shadow-black/30">
           <button
             onClick={() => setView("grid")}
-            className={`p-2 rounded-md transition-all ${view === "grid"
-                ? "bg-blue-500/20 text-blue-400"
-                : "text-gray-400 hover:text-gray-300 hover:bg-[#262637]"
+            className={`p-2.5 rounded-md transition-all ${view === "grid"
+              ? "bg-blue-500/20 text-blue-400"
+              : "text-gray-400 hover:text-gray-300 hover:bg-[#262637]"
               }`}
             aria-label="Grid view"
+            aria-pressed={view === "grid"}
           >
-            <Grid className="w-4 h-4" />
+            <Grid className="w-5 h-5" />
           </button>
           <button
             onClick={() => setView("list")}
-            className={`p-2 rounded-md transition-all ${view === "list"
-                ? "bg-blue-500/20 text-blue-400"
-                : "text-gray-400 hover:text-gray-300 hover:bg-[#262637]"
+            className={`p-2.5 rounded-md transition-all ${view === "list"
+              ? "bg-blue-500/20 text-blue-400"
+              : "text-gray-400 hover:text-gray-300 hover:bg-[#262637]"
               }`}
             aria-label="List view"
+            aria-pressed={view === "list"}
           >
-            <Layers className="w-4 h-4" />
+            <Layers className="w-5 h-5" />
           </button>
         </div>
       </div>
