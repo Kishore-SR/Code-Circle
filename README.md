@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://i.postimg.cc/vmR67y3k/Covalent-Poster.png" alt="CodeCircle Poster" width="100%" />
+  <img src="https://i.postimg.cc/hG5XnPNv/Code-Circle-Poster.png" alt="CodeCircle Poster" width="100%" />
 </p>
 
 <p align="center">An online IDE to write, execute and share multi-language code snippets with a developer-friendly experience</p>
@@ -7,7 +7,7 @@
 
 <p align="center">
   <a href="https://codecircle.vercel.app" target="_blank">
-    <img src="https://img.shields.io/badge/Live Project-00B053?style=for-the-badge&logo=vercel&logoColor=white" />
+    <img src="https://img.shields.io/badge/Project Link-00B053?style=for-the-badge&logo=vercel&logoColor=white" />
   </a>
 </p>
 
