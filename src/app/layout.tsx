@@ -18,7 +18,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Code Circle",
+  title: "Code Circle | KSR",
   description: "Run and share code snippets",
 };
 
