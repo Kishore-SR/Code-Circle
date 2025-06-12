@@ -1,3 +1,5 @@
+"use client";
+
 import { CodeIcon, SendIcon } from "lucide-react";
 import { useState } from "react";
 import CommentContent from "./CommentContent";

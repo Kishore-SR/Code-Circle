@@ -1,3 +1,5 @@
+"use client";
+
 import { useAuth } from "@clerk/nextjs";
 import { Id } from "../../convex/_generated/dataModel";
 import { useMutation, useQuery } from "convex/react";
