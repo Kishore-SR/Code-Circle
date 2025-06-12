@@ -13,6 +13,7 @@ function SnippetsPage() {
   const snippets = useQuery(api.snippets.getSnippets);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
+  // Default to grid view - always use grid on mobile since we removed the toggle buttons
   const [view, setView] = useState<"grid" | "list">("grid");
 
   // loading state
@@ -134,7 +135,7 @@ function SnippetsPage() {
               </span>
 
               {/* View Toggle */}
-              <div className="flex items-center gap-1 p-0.5 sm:p-1 bg-[#1e1e2e] rounded-lg ring-1 ring-gray-800">
+              <div className="hidden sm:flex items-center gap-1 p-0.5 sm:p-1 bg-[#1e1e2e] rounded-lg ring-1 ring-gray-800">
                 <button
                   onClick={() => setView("grid")}
                   className={`p-1.5 sm:p-2 rounded-md transition-all ${view === "grid"
@@ -215,34 +216,6 @@ function SnippetsPage() {
             </div>
           </motion.div>
         )}
-      </div>
-
-      {/* Mobile floating view toggle */}
-      <div className="fixed sm:hidden right-4 bottom-4 z-20">
-        <div className="flex items-center gap-1 p-1 bg-[#1e1e2e] rounded-lg ring-1 ring-gray-800 shadow-lg shadow-black/30">
-          <button
-            onClick={() => setView("grid")}
-            className={`p-2.5 rounded-md transition-all ${view === "grid"
-              ? "bg-blue-500/20 text-blue-400"
-              : "text-gray-400 hover:text-gray-300 hover:bg-[#262637]"
-              }`}
-            aria-label="Grid view"
-            aria-pressed={view === "grid"}
-          >
-            <Grid className="w-5 h-5" />
-          </button>
-          <button
-            onClick={() => setView("list")}
-            className={`p-2.5 rounded-md transition-all ${view === "list"
-              ? "bg-blue-500/20 text-blue-400"
-              : "text-gray-400 hover:text-gray-300 hover:bg-[#262637]"
-              }`}
-            aria-label="List view"
-            aria-pressed={view === "list"}
-          >
-            <Layers className="w-5 h-5" />
-          </button>
-        </div>
       </div>
     </div>
   );
