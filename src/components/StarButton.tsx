@@ -5,23 +5,31 @@ import { Id } from "../../convex/_generated/dataModel";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { Star } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function StarButton({ snippetId }: { snippetId: Id<"snippets"> }) {
-  const { isSignedIn } = useAuth();
+  const { isSignedIn, userId } = useAuth();
   const [optimisticIsStarred, setOptimisticIsStarred] = useState<boolean | null>(null);
   const [optimisticCount, setOptimisticCount] = useState<number | null>(null);
 
-  const isStarredQuery = useQuery(api.snippets.isSnippetStarred, {
-    snippetId
-  });
+  // Only fetch isStarred when the user is signed in to avoid wrong caching
+  const isStarredQuery = useQuery(
+    api.snippets.isSnippetStarred,
+    isSignedIn ? { snippetId } : "skip"
+  );
 
   const starCountQuery = useQuery(api.snippets.getSnippetStarCount, { snippetId });
   const star = useMutation(api.snippets.starSnippet);
 
   // Determine the actual values to display considering the optimistic updates
-  const isStarred = optimisticIsStarred !== null ? optimisticIsStarred : isStarredQuery;
+  const isStarred = optimisticIsStarred !== null ? optimisticIsStarred : (isStarredQuery || false);
   const starCount = optimisticCount !== null ? optimisticCount : starCountQuery;
+
+  // Reset optimistic state when user changes
+  useEffect(() => {
+    setOptimisticIsStarred(null);
+    setOptimisticCount(null);
+  }, [userId]);
 
   const handleStar = async () => {
     if (!isSignedIn) return;
