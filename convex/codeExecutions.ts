@@ -52,10 +52,7 @@ export const getUserExecutions = query({
       .order("desc")
       .paginate(args.paginationOpts);
 
-    // Log the results
-    console.log("Found executions count:", executions.results.length);
-    console.log("Execution languages:", executions.results.map(e => e.language));
-
+    // Return the paginated results without trying to log properties that don't exist
     return executions;
   },
 });
