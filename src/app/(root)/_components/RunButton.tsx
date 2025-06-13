@@ -11,18 +11,22 @@ function RunButton() {
   const { user } = useUser();
   const { runCode, language, isRunning } = useCodeEditorStore();
   const saveExecution = useMutation(api.codeExecutions.saveExecution);
-
   const handleRun = async () => {
     await runCode();
     const result = getExecutionResult();
 
     if (user && result) {
-      await saveExecution({
-        language,
-        code: result.code,
-        output: result.output || undefined,
-        error: result.error || undefined,
-      });
+      try {
+        await saveExecution({
+          language,
+          code: result.code,
+          output: result.output || undefined,
+          error: result.error || undefined,
+        });
+      } catch (error) {
+        console.error("Error saving execution:", error);
+        // Continue execution even if saving fails
+      }
     }
   }; return (
     <motion.button

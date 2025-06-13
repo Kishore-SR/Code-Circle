@@ -92,7 +92,8 @@ function ProfileHeader({ userStats, userData, user }: ProfileHeaderProps) {
             alt="Profile"
             width={96}
             height={96}
-            className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-gray-800/50 relative z-10 group-hover:scale-105 transition-transform"
+            className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-gray-800/50 relative z-10 group-hover:scale-105 transition-transform object-cover"
+            unoptimized
           />
           {userData.isPro && (
             <div

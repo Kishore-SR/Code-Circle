@@ -21,10 +21,9 @@ export const saveExecution = mutation({
       .filter((q) => q.eq(q.field("userId"), identity.subject))
       .first();
 
-    if (!user?.isPro && args.language !== "javascript") {
-      throw new ConvexError("Pro subscription required to use this language");
-    }
-
+    // Store all language executions regardless of pro status
+    // We'll check pro status for execution, but we still want to save all executions
+    // Remove the restriction to allow all languages to be saved
     await ctx.db.insert("codeExecutions", {
       ...args,
       userId: identity.subject,
