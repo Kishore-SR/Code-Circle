@@ -1,10 +1,10 @@
 "use client";
 import { Snippet } from "@/types";
 import { useUser } from "@clerk/nextjs";
-import { useMutation } from "convex/react";
+import { useMutation, useConvex } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import { useState } from "react";
-
+import { Id } from "../../../../convex/_generated/dataModel";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Clock, Trash2, User } from "lucide-react";
@@ -12,18 +12,37 @@ import Image from "next/image";
 import toast from "react-hot-toast";
 import StarButton from "@/components/StarButton";
 
-function SnippetCard({ snippet, view = "grid" }: { snippet: Snippet; view?: "grid" | "list" }) {
+function SnippetCard({
+  snippet,
+  view = "grid",
+  onDelete
+}: {
+  snippet: Snippet;
+  view?: "grid" | "list";
+  onDelete?: (snippetId: Id<"snippets">) => void;
+}) {
   const { user } = useUser();
   const deleteSnippet = useMutation(api.snippets.deleteSnippet);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const handleDelete = async () => {
+  const handleDelete = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (isDeleting) return;
+
     setIsDeleting(true);
 
     try {
       await deleteSnippet({ snippetId: snippet._id });
+      toast.success("Snippet deleted successfully");
+
+      // Call the onDelete callback if provided
+      if (onDelete) {
+        onDelete(snippet._id);
+      }
     } catch (error) {
-      console.log("Error deleting snippet:", error);
+      console.error("Error deleting snippet:", error);
       toast.error("Error deleting snippet");
     } finally {
       setIsDeleting(false);

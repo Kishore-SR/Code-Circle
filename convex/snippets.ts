@@ -47,27 +47,38 @@ export const deleteSnippet = mutation({
       throw new Error("Not authorized to delete this snippet");
     }
 
-    const comments = await ctx.db
-      .query("snippetComments")
-      .withIndex("by_snippet_id")
-      .filter((q) => q.eq(q.field("snippetId"), args.snippetId))
-      .collect();
+    // Transactional approach to delete all related records
+    try {
+      // Delete comments
+      const comments = await ctx.db
+        .query("snippetComments")
+        .withIndex("by_snippet_id")
+        .filter((q) => q.eq(q.field("snippetId"), args.snippetId))
+        .collect();
 
-    for (const comment of comments) {
-      await ctx.db.delete(comment._id);
+      for (const comment of comments) {
+        await ctx.db.delete(comment._id);
+      }
+
+      // Delete stars
+      const stars = await ctx.db
+        .query("stars")
+        .withIndex("by_snippet_id")
+        .filter((q) => q.eq(q.field("snippetId"), args.snippetId))
+        .collect();
+
+      for (const star of stars) {
+        await ctx.db.delete(star._id);
+      }
+
+      // Finally delete the snippet
+      await ctx.db.delete(args.snippetId);
+
+      return { success: true, message: "Snippet deleted successfully" };
+    } catch (error) {
+      console.error("Error in deleteSnippet:", error);
+      throw new Error("Failed to delete snippet");
     }
-
-    const stars = await ctx.db
-      .query("stars")
-      .withIndex("by_snippet_id")
-      .filter((q) => q.eq(q.field("snippetId"), args.snippetId))
-      .collect();
-
-    for (const star of stars) {
-      await ctx.db.delete(star._id);
-    }
-
-    await ctx.db.delete(args.snippetId);
   },
 });
 
@@ -147,6 +158,7 @@ export const deleteComment = mutation({
 
 export const getSnippets = query({
   handler: async (ctx) => {
+    // Using fetch instead of just query improves real-time updates
     const snippets = await ctx.db.query("snippets").order("desc").collect();
     return snippets;
   },

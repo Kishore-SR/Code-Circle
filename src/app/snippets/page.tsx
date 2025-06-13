@@ -2,23 +2,38 @@
 
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SnippetsPageSkeleton from "./_components/SnippetsPageSkeleton";
 import NavigationHeader from "@/components/NavigationHeader";
 import { AnimatePresence, motion } from "framer-motion";
 import { BookOpen, Code, Grid, Layers, Search, Tag, X } from "lucide-react";
 import SnippetCard from "./_components/SnippetCard";
 import Image from "next/image";
+import { Id } from "../../../convex/_generated/dataModel";
 
 function SnippetsPage() {
-  const snippets = useQuery(api.snippets.getSnippets);
+  const snippetsQuery = useQuery(api.snippets.getSnippets);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
   // Default to grid view - always use grid on mobile since we removed the toggle buttons
   const [view, setView] = useState<"grid" | "list">("grid");
+  // Keep track of locally deleted snippets for optimistic UI updates
+  const [deletedSnippetIds, setDeletedSnippetIds] = useState<Id<"snippets">[]>([]);
+
+  // Reset deleted snippets when the query result changes
+  useEffect(() => {
+    if (snippetsQuery !== undefined) {
+      setDeletedSnippetIds([]);
+    }
+  }, [snippetsQuery]);
+
+  // Handle local deletion
+  const handleSnippetDelete = (snippetId: Id<"snippets">) => {
+    setDeletedSnippetIds(prev => [...prev, snippetId]);
+  };
 
   // loading state
-  if (snippets === undefined) {
+  if (snippetsQuery === undefined) {
     return (
       <div className="min-h-screen">
         <NavigationHeader />
@@ -26,6 +41,11 @@ function SnippetsPage() {
       </div>
     );
   }
+
+  // Filter out locally deleted snippets
+  const snippets = snippetsQuery.filter(snippet =>
+    !deletedSnippetIds.includes(snippet._id)
+  );
 
   const languages = [...new Set(snippets.map((s) => s.language))];
   const popularLanguages = languages.slice(0, 5);
@@ -181,7 +201,12 @@ function SnippetsPage() {
         >
           <AnimatePresence mode="popLayout">
             {filteredSnippets.map((snippet) => (
-              <SnippetCard key={snippet._id} snippet={snippet} view={view} />
+              <SnippetCard
+                key={snippet._id}
+                snippet={snippet}
+                view={view}
+                onDelete={handleSnippetDelete}
+              />
             ))}
           </AnimatePresence>
         </motion.div>
