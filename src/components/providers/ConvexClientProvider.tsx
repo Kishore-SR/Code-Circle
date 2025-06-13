@@ -8,7 +8,6 @@ import { ConvexProviderWithClerk } from "convex/react-clerk";
 const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL!, {
   // Using default values but being explicit for documentation purposes
   unsavedChangesWarning: true,
-  watchQueryStoreInvalidation: true,
 });
 
 function ConvexClientProvider({ children }: { children: React.ReactNode }) {
