@@ -69,9 +69,7 @@ export const useCodeEditorStore = create<CodeEditorState>((set, get) => {
         output: "",
         error: null,
       });
-    },
-
-    runCode: async () => {
+    }, runCode: async () => {
       const { language, getCode } = get();
       const code = getCode();
 

@@ -24,12 +24,15 @@ function LanguageSelector({ hasAccess }: { hasAccess: boolean }) {
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-  const handleLanguageSelect = (langId: string) => {
+  }, []); const handleLanguageSelect = (langId: string) => {
     // Allow JavaScript, Java, Python, and C++ for free users
     const freeLanguages = ["javascript", "python", "java", "cpp"];
-    if (!hasAccess && !freeLanguages.includes(langId)) return;
+    if (!hasAccess && !freeLanguages.includes(langId)) {
+      console.log("Language not available for free users:", langId);
+      return;
+    }
 
+    console.log("Selecting language:", langId);
     setLanguage(langId);
     setIsOpen(false);
   };

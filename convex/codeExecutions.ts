@@ -14,20 +14,24 @@ export const saveExecution = mutation({
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) throw new ConvexError("Not authenticated");
 
-    // check pro status
+    // Get user info but don't restrict execution saving
     const user = await ctx.db
       .query("users")
       .withIndex("by_user_id")
       .filter((q) => q.eq(q.field("userId"), identity.subject))
       .first();
 
-    // Store all language executions regardless of pro status
-    // We'll check pro status for execution, but we still want to save all executions
-    // Remove the restriction to allow all languages to be saved
-    await ctx.db.insert("codeExecutions", {
+    // Allow all executions to be saved regardless of pro status
+    // This ensures all languages show up in the profile page
+    console.log("Saving execution for language:", args.language);
+
+    const insertId = await ctx.db.insert("codeExecutions", {
       ...args,
       userId: identity.subject,
     });
+
+    console.log("Execution saved with ID:", insertId);
+    return insertId;
   },
 });
 
@@ -37,12 +41,22 @@ export const getUserExecutions = query({
     paginationOpts: paginationOptsValidator,
   },
   handler: async (ctx, args) => {
-    return await ctx.db
+    // Log what's being queried
+    console.log("Getting executions for user:", args.userId);
+
+    // Get all executions without filtering by language
+    const executions = await ctx.db
       .query("codeExecutions")
       .withIndex("by_user_id")
       .filter((q) => q.eq(q.field("userId"), args.userId))
       .order("desc")
       .paginate(args.paginationOpts);
+
+    // Log the results
+    console.log("Found executions count:", executions.results.length);
+    console.log("Execution languages:", executions.results.map(e => e.language));
+
+    return executions;
   },
 });
 

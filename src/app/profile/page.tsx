@@ -51,6 +51,9 @@ function ProfilePage() {
     { initialNumItems: 5 }
   );
 
+  // Debug logging
+  console.log("Executions in profile:", executions?.map(e => e.language));
+
   const userData = useQuery(api.users.getUser, { userId: user?.id ?? "" });
 
   const handleLoadMore = () => {
@@ -148,8 +151,8 @@ function ProfilePage() {
                             <div className="flex items-center gap-2">
                               <span
                                 className={`text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 rounded-full ${execution.error
-                                    ? "bg-red-500/10 text-red-400"
-                                    : "bg-green-500/10 text-green-400"
+                                  ? "bg-red-500/10 text-red-400"
+                                  : "bg-green-500/10 text-green-400"
                                   }`}
                               >
                                 {execution.error ? "Error" : "Success"}

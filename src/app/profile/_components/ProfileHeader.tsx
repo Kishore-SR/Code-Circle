@@ -87,14 +87,16 @@ function ProfileHeader({ userStats, userData, user }: ProfileHeaderProps) {
             className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full 
           blur-xl opacity-50 group-hover:opacity-75 transition-opacity"
           />
-          <Image
-            src={user.imageUrl}
-            alt="Profile"
-            width={96}
-            height={96}
-            className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-gray-800/50 relative z-10 group-hover:scale-105 transition-transform object-cover"
-            unoptimized
-          />
+          {user.imageUrl && (
+            <Image
+              src={user.imageUrl}
+              alt="Profile"
+              width={96}
+              height={96}
+              className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-gray-800/50 relative z-10 group-hover:scale-105 transition-transform object-cover"
+              unoptimized
+            />
+          )}
           {userData.isPro && (
             <div
               className="absolute -top-2 -right-2 bg-gradient-to-r from-purple-500 to-purple-600 p-1.5 sm:p-2
