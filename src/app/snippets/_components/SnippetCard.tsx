@@ -17,9 +17,6 @@ function SnippetCard({ snippet, view = "grid" }: { snippet: Snippet; view?: "gri
   const deleteSnippet = useMutation(api.snippets.deleteSnippet);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // Debug log to check if user IDs match
-  const isOwner = user && user.id === snippet.userId;
-
   const handleDelete = async () => {
     setIsDeleting(true);
 
